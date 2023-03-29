@@ -17,4 +17,8 @@
       <ProjectReference Include="..\GrindingCity.Infrastructure\GrindingCity.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Building" />
+    </ItemGroup>
+
 </Project>

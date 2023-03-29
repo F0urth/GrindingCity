@@ -1,4 +1,4 @@
-﻿namespace GrindingCity.WebApi.Models;
+﻿namespace GrindingCity.WebApi.Building.Models;
 
 using Domain.Entities;
 

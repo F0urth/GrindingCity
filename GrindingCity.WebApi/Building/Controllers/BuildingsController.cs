@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace GrindingCity.WebApi.Controllers;
+﻿namespace GrindingCity.WebApi.Building.Controllers;
 
 using Domain.Building.Query;
 using Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 using Swashbuckle.AspNetCore.Annotations;
 

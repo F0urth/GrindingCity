@@ -1,4 +1,4 @@
-﻿namespace GrindingCity.WebApi.Extensions;
+﻿namespace GrindingCity.WebApi.Building.Extensions;
 
 using Domain.Building.Command;
 using Domain.Entities;
