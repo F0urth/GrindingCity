@@ -21,6 +21,7 @@ public sealed class BuildingsController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
+    [SwaggerResponse(StatusCodes.Status200OK, type: typeof(BuildingDto))]
     public async Task<ActionResult<BuildingDto>> GetBuildingById(Guid id)
     {
         var query = new GetBuildingByIdQuery(id);
@@ -34,6 +35,7 @@ public sealed class BuildingsController : ControllerBase
     }
     
     [HttpGet]
+    [SwaggerResponse(StatusCodes.Status200OK, type: typeof(IEnumerable<BuildingDto>))]
     public async Task<ActionResult<IEnumerable<BuildingDto>>> GetAllBuildings()
     {
         var query = new GetAllBuildingsQuery();
@@ -43,6 +45,8 @@ public sealed class BuildingsController : ControllerBase
     }
     
     [HttpPost]
+    [SwaggerResponse(StatusCodes.Status201Created, type: typeof(BuildingDto))]
+    [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
     public async Task<ActionResult<BuildingDto>> AddBuilding([FromBody]InputBuildingDto buildingDto)
     {
         var command = buildingDto.ToAddBuildingCommand();
@@ -56,6 +60,7 @@ public sealed class BuildingsController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveById(Guid id)
     {
         var command = new RemoveBuildingByIdCommand(id);
