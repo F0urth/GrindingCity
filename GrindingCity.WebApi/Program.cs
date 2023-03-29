@@ -1,8 +1,16 @@
+using GrindingCity.Core.Interfaces.Infrastructure.Repositories;
+using GrindingCity.Infrastructure.Database;
+using GrindingCity.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddDbContext<InMemoryDbContext>();
+
+builder.Services.AddTransient<IBuildingRepository, BuildingRepository>();
 
 var app = builder.Build();
 

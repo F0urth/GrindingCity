@@ -7,8 +7,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Controllers\.gitkeep" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\GrindingCity.Core\GrindingCity.Core.csproj" />
+      <ProjectReference Include="..\GrindingCity.Infrastructure\GrindingCity.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

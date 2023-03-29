@@ -3,3 +3,7 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+/.vs/GrindingCity
+/GrindingCity.WebApi/GrindingCity.WebApi.csproj.user
+/.vs/ProjectEvaluation
+/.vs/VSWorkspaceState.json
