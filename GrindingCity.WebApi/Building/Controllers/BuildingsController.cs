@@ -1,5 +1,6 @@
 ﻿namespace GrindingCity.WebApi.Building.Controllers;
 
+using Domain.Building.Command;
 using Domain.Building.Query;
 using Extensions;
 using MediatR;
@@ -42,7 +43,7 @@ public sealed class BuildingsController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<BuildingDto>> AddBuilding([FromBody]BuildingDto buildingDto)
+    public async Task<ActionResult<BuildingDto>> AddBuilding([FromBody]InputBuildingDto buildingDto)
     {
         var command = buildingDto.ToAddBuildingCommand();
         var result = await _mediator.Send(command);
@@ -50,13 +51,15 @@ public sealed class BuildingsController : ControllerBase
         {
             return UnprocessableEntity(result.Error);
         }
-        
-        return Ok(result.Value);
+
+        return CreatedAtAction(nameof(GetBuildingById), new {id = result.Value.Id}, result.Value.ToDto());
     }
 
     [HttpDelete("{id:guid}")]
-    public IActionResult RemoveById(Guid id)
+    public async Task<IActionResult> RemoveById(Guid id)
     {
+        var command = new RemoveBuildingByIdCommand(id);
+        await _mediator.Send(command);
         return NoContent();
     }
 }

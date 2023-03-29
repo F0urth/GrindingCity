@@ -8,6 +8,7 @@ public static class BuildingExtensions
     public static BuildingEntity ToEntity(this AddBuildingCommand command) =>
         new()
         {
+            Id = Guid.NewGuid(),
             BuildingType = command.BuildingType,
             IsPurchased = command.IsPurchased,
             Price = command.Price,

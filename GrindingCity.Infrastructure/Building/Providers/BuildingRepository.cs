@@ -3,6 +3,7 @@
 using CSharpFunctionalExtensions;
 using Domain.Building.Providers;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Shared;
 
 public sealed class BuildingRepository : IBuildingRepository
@@ -34,7 +35,8 @@ public sealed class BuildingRepository : IBuildingRepository
 
     public async Task RemoveBuildingAsync(Guid id)
     {
-        _dbContext.Building.Remove(new() { Id = id });
+        var buildingEntity = new BuildingEntity { Id = id };
+        _dbContext.Entry(buildingEntity).State = EntityState.Deleted;
         await _dbContext.SaveChangesAsync();
     }
 }

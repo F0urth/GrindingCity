@@ -18,7 +18,7 @@ public static class BuildingExtensions
         };
 
     
-    public static AddBuildingCommand ToAddBuildingCommand(this BuildingDto dto) =>
+    public static AddBuildingCommand ToAddBuildingCommand(this InputBuildingDto dto) =>
         new()
         {
             BuildingType = dto.BuildingType,
