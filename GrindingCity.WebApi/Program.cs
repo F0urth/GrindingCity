@@ -1,8 +1,14 @@
+using GrindingCity.Infrastructure.Shared;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<GrindingCityDbContext>(
+    e => e.UseInMemoryDatabase("GrindingCity"));
+builder.Services.AddServices();
 
 var app = builder.Build();
 

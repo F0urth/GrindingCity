@@ -11,9 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Building\CommandHandlers" />
-      <Folder Include="Building\Providers" />
-      <Folder Include="Building\QueryHandlers" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     </ItemGroup>
 
 </Project>

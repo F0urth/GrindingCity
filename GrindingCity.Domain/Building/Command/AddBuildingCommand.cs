@@ -4,7 +4,7 @@ using CSharpFunctionalExtensions;
 using Entities;
 using MediatR;
 
-public class AddBuildingCommand : IRequest<Result<Guid, string>>
+public sealed class AddBuildingCommand : IRequest<Result<Guid, string>>
 {
     public BuildingType BuildingType { get; init; }
 
