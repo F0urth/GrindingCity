@@ -2,6 +2,9 @@
 
 namespace GrindingCity.WebApi.Controllers;
 
+using Domain.Building.Query;
+using Extensions;
+using MediatR;
 using Models;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -10,26 +13,50 @@ using Swashbuckle.AspNetCore.Annotations;
 [SwaggerTag("Buildings")]
 public sealed class BuildingsController : ControllerBase
 {
-    [HttpGet("{id:guid}")]
-    public ActionResult<BuildingDto> Get(Guid id)
+    private readonly IMediator _mediator;
+
+    public BuildingsController(IMediator mediator)
     {
-        return Ok();
+        _mediator = mediator;
+    }
+
+    [HttpGet("{id:guid}")]
+    public async Task<ActionResult<BuildingDto>> GetBuildingById(Guid id)
+    {
+        var query = new GetBuildingByIdQuery(id);
+        var result = await _mediator.Send(query);
+        if (result.IsFailure)
+        {
+            return UnprocessableEntity(result.Error);
+        }
+        
+        return Ok(result.Value.ToDto());
     }
     
     [HttpGet]
-    public ActionResult<IEnumerable<BuildingDto>> Get()
+    public async Task<ActionResult<IEnumerable<BuildingDto>>> GetAllBuildings()
     {
-        return Ok();
+        var query = new GetAllBuildingsQuery();
+        var result = await _mediator.Send(query);
+
+        return Ok(result.Select(e => e.ToDto()));
     }
     
     [HttpPost]
-    public ActionResult<BuildingDto> Post(Guid id)
+    public async Task<ActionResult<BuildingDto>> AddBuilding([FromBody]BuildingDto buildingDto)
     {
-        return Ok();
+        var command = buildingDto.ToAddBuildingCommand();
+        var result = await _mediator.Send(command);
+        if (result.IsFailure)
+        {
+            return UnprocessableEntity(result.Error);
+        }
+        
+        return Ok(result.Value);
     }
 
     [HttpDelete("{id:guid}")]
-    public IActionResult Delete(Guid id)
+    public IActionResult RemoveById(Guid id)
     {
         return NoContent();
     }

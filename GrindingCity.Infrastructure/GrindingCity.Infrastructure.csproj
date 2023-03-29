@@ -6,4 +6,14 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\GrindingCity.Domain\GrindingCity.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Building\CommandHandlers" />
+      <Folder Include="Building\Providers" />
+      <Folder Include="Building\QueryHandlers" />
+    </ItemGroup>
+
 </Project>
