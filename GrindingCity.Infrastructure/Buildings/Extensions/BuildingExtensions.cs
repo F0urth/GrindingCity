@@ -1,4 +1,4 @@
-﻿using Domain.Buildings.Command;
+﻿using Domain.Buildings.Commands;
 using Domain.Entities;
 
 namespace GrindingCity.Infrastructure.Buildings.Extensions;

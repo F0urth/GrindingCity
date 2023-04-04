@@ -2,7 +2,7 @@
 
 namespace GrindingCity.WebApi.Buildings.Models;
 
-public sealed class BuildingDto
+public sealed class ReadBuildingDto
 {
     public Guid Id { get; init; }
 

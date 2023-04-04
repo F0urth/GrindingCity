@@ -1,4 +1,4 @@
-﻿using Domain.Buildings.Command;
+﻿using Domain.Buildings.Commands;
 using Domain.Entities;
 using GrindingCity.WebApi.Buildings.Models;
 
@@ -6,7 +6,7 @@ namespace GrindingCity.WebApi.Buildings.Extensions;
 
 public static class BuildingExtensions
 {
-    public static BuildingDto ToDto(this BuildingEntity entity) =>
+    public static ReadBuildingDto ToReadDto(this BuildingEntity entity) =>
         new()
         {
             Id = entity.Id,

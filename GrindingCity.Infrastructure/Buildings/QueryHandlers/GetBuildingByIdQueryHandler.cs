@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using Domain.Buildings.Providers;
-using Domain.Buildings.Query;
+using Domain.Buildings.Queries;
 using Domain.Entities;
 using MediatR;
 

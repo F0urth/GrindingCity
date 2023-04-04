@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Domain.Buildings.Command;
+namespace Domain.Buildings.Commands;
 
 public sealed record RemoveBuildingByIdCommand(Guid Id) : IRequest<Unit>;

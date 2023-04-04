@@ -1,4 +1,4 @@
-﻿using Domain.Buildings.Command;
+﻿using Domain.Buildings.Commands;
 using Domain.Buildings.Providers;
 using MediatR;
 

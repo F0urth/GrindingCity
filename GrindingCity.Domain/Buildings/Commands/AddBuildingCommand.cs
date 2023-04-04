@@ -2,7 +2,7 @@
 using Domain.Entities;
 using MediatR;
 
-namespace Domain.Buildings.Command;
+namespace Domain.Buildings.Commands;
 
 public sealed class AddBuildingCommand : IRequest<Result<BuildingEntity, string>>
 {

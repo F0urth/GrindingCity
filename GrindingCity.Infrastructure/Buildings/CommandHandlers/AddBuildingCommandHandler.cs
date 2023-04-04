@@ -1,5 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using Domain.Buildings.Command;
+using Domain.Buildings.Commands;
 using Domain.Buildings.Providers;
 using Domain.Entities;
 using GrindingCity.Infrastructure.Buildings.Extensions;
