@@ -1,7 +1,7 @@
-﻿namespace Domain.Building.Providers;
+﻿using CSharpFunctionalExtensions;
+using Domain.Entities;
 
-using CSharpFunctionalExtensions;
-using Entities;
+namespace Domain.Buildings.Providers;
 
 public interface IBuildingRepository
 {

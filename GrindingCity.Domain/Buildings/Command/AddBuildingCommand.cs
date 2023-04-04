@@ -1,11 +1,11 @@
-﻿namespace GrindingCity.WebApi.Building.Models;
-
+﻿using CSharpFunctionalExtensions;
 using Domain.Entities;
+using MediatR;
 
-public sealed class BuildingDto
+namespace Domain.Buildings.Command;
+
+public sealed class AddBuildingCommand : IRequest<Result<BuildingEntity, string>>
 {
-    public Guid Id { get; init; }
-
     public BuildingType BuildingType { get; init; }
 
     public bool IsPurchased { get; init; }

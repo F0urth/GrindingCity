@@ -1,10 +1,10 @@
-﻿namespace GrindingCity.Infrastructure.Building.Providers;
-
-using CSharpFunctionalExtensions;
-using Domain.Building.Providers;
+﻿using CSharpFunctionalExtensions;
+using Domain.Buildings.Providers;
 using Domain.Entities;
+using GrindingCity.Infrastructure.Shared;
 using Microsoft.EntityFrameworkCore;
-using Shared;
+
+namespace GrindingCity.Infrastructure.Buildings.Providers;
 
 public sealed class BuildingRepository : IBuildingRepository
 {

@@ -1,8 +1,8 @@
-﻿namespace GrindingCity.WebApi.Building.Models;
+﻿using Domain.Entities;
 
-using Domain.Entities;
+namespace GrindingCity.WebApi.Buildings.Models;
 
-public class InputBuildingDto
+public sealed class InputBuildingDto
 {
     public BuildingType BuildingType { get; init; }
 

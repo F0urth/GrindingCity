@@ -1,11 +1,11 @@
-﻿namespace GrindingCity.Infrastructure.Building.CommandHandlers;
-
-using CSharpFunctionalExtensions;
-using Domain.Building.Command;
-using Domain.Building.Providers;
+﻿using CSharpFunctionalExtensions;
+using Domain.Buildings.Command;
+using Domain.Buildings.Providers;
 using Domain.Entities;
-using Extensions;
+using GrindingCity.Infrastructure.Buildings.Extensions;
 using MediatR;
+
+namespace GrindingCity.Infrastructure.Buildings.CommandHandlers;
 
 public sealed class AddBuildingCommandHandler : IRequestHandler<AddBuildingCommand, Result<BuildingEntity, string>>
 {

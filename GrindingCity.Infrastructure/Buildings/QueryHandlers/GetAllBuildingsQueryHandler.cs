@@ -1,9 +1,9 @@
-﻿namespace GrindingCity.Infrastructure.Building.QueryHandlers;
-
-using Domain.Building.Providers;
-using Domain.Building.Query;
+﻿using Domain.Buildings.Providers;
+using Domain.Buildings.Query;
 using Domain.Entities;
 using MediatR;
+
+namespace GrindingCity.Infrastructure.Buildings.QueryHandlers;
 
 public sealed class GetAllBuildingsQueryHandler : IRequestHandler<GetAllBuildingsQuery, IEnumerable<BuildingEntity>>
 {

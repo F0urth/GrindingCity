@@ -1,10 +1,10 @@
-﻿namespace GrindingCity.Infrastructure.Building.QueryHandlers;
-
-using CSharpFunctionalExtensions;
-using Domain.Building.Providers;
-using Domain.Building.Query;
+﻿using CSharpFunctionalExtensions;
+using Domain.Buildings.Providers;
+using Domain.Buildings.Query;
 using Domain.Entities;
 using MediatR;
+
+namespace GrindingCity.Infrastructure.Buildings.QueryHandlers;
 
 public sealed class GetBuildingByIdQueryHandler : IRequestHandler<GetBuildingByIdQuery, Result<BuildingEntity, string>>
 {

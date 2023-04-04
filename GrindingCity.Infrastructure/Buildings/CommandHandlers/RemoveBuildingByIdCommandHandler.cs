@@ -1,8 +1,8 @@
-﻿namespace GrindingCity.Infrastructure.Building.CommandHandlers;
-
-using Domain.Building.Command;
-using Domain.Building.Providers;
+﻿using Domain.Buildings.Command;
+using Domain.Buildings.Providers;
 using MediatR;
+
+namespace GrindingCity.Infrastructure.Buildings.CommandHandlers;
 
 public sealed class RemoveBuildingByIdCommandHandler : IRequestHandler<RemoveBuildingByIdCommand, Unit>
 {

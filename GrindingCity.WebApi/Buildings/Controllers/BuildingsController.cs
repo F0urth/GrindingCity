@@ -1,12 +1,12 @@
-﻿namespace GrindingCity.WebApi.Building.Controllers;
-
-using Domain.Building.Command;
-using Domain.Building.Query;
-using Extensions;
+﻿using Domain.Buildings.Command;
+using Domain.Buildings.Query;
+using GrindingCity.WebApi.Buildings.Extensions;
+using GrindingCity.WebApi.Buildings.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using Swashbuckle.AspNetCore.Annotations;
+
+namespace GrindingCity.WebApi.Buildings.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

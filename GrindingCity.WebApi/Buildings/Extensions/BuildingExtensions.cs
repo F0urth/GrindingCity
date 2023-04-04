@@ -1,8 +1,8 @@
-﻿namespace GrindingCity.WebApi.Building.Extensions;
-
-using Domain.Building.Command;
+﻿using Domain.Buildings.Command;
 using Domain.Entities;
-using Models;
+using GrindingCity.WebApi.Buildings.Models;
+
+namespace GrindingCity.WebApi.Buildings.Extensions;
 
 public static class BuildingExtensions
 {

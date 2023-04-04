@@ -1,8 +1,9 @@
-﻿namespace GrindingCity.Infrastructure.Shared;
+﻿using Domain.Buildings.Providers;
+using GrindingCity.Infrastructure.Buildings.Providers;
+
+namespace GrindingCity.Infrastructure.Shared;
 
 using System.Reflection;
-using Building.Providers;
-using Domain.Building.Providers;
 using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,7 +1,7 @@
-﻿namespace GrindingCity.Infrastructure.Building.Extensions;
-
-using Domain.Building.Command;
+﻿using Domain.Buildings.Command;
 using Domain.Entities;
+
+namespace GrindingCity.Infrastructure.Buildings.Extensions;
 
 public static class BuildingExtensions
 {
