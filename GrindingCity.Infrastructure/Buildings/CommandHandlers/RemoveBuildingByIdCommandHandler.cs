@@ -13,9 +13,9 @@ public sealed class RemoveBuildingByIdCommandHandler : IRequestHandler<RemoveBui
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(RemoveBuildingByIdCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(RemoveBuildingByIdCommand command, CancellationToken cancellationToken)
     {
-        await _repository.RemoveBuildingAsync(request.Id);
+        await _repository.RemoveBuildingAsync(command.Id);
         return Unit.Value;
     }
 }

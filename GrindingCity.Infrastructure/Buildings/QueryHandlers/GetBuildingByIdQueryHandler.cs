@@ -15,9 +15,9 @@ public sealed class GetBuildingByIdQueryHandler : IRequestHandler<GetBuildingByI
         _repository = repository;
     }
 
-    public async Task<Result<BuildingEntity, string>> Handle(GetBuildingByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<BuildingEntity, string>> Handle(GetBuildingByIdQuery query, CancellationToken cancellationToken)
     {
-        var building = await _repository.GetBuildingByAsync(request.Id);
+        var building = await _repository.GetBuildingByAsync(query.Id);
         if (building.HasNoValue)
         {
             return Result.Failure<BuildingEntity, string>("");

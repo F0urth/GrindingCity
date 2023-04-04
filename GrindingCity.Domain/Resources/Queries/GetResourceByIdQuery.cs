@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Domain.Resources.Queries;
 
-public record GetResourceById(Guid Id) : IRequest<Result<ResourceEntity, string>>;
+public sealed record GetResourceByIdQuery(Guid Id) : IRequest<Result<ResourceEntity, string>>;

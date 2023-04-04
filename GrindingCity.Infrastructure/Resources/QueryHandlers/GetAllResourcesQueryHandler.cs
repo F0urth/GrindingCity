@@ -14,7 +14,7 @@ public sealed class GetAllResourcesQueryHandler : IRequestHandler<GetAllResource
         _repository = repository;
     }
 
-    public async Task<IEnumerable<ResourceEntity>> Handle(GetAllResourcesQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ResourceEntity>> Handle(GetAllResourcesQuery query, CancellationToken cancellationToken)
     {
         return await _repository.GetAllResourcesAsync();
     }

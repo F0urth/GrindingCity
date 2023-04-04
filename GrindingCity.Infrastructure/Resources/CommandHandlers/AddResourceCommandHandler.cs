@@ -16,9 +16,9 @@ public sealed class AddResourceCommandHandler : IRequestHandler<AddResourceComma
         _repository = repository;
     }
 
-    public async Task<Result<ResourceEntity, string>> Handle(AddResourceCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ResourceEntity, string>> Handle(AddResourceCommand command, CancellationToken cancellationToken)
     {
-        var buildingEntity = request.ToEntity();
+        var buildingEntity = command.ToEntity();
         var addBuilding = await _repository.AddResourceAsync(buildingEntity);
         return addBuilding;
     }

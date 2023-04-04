@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class BuildingEntity
+public sealed class BuildingEntity
 {
     public Guid Id { get; set; }
 

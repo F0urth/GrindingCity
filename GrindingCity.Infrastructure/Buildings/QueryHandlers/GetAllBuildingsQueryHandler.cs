@@ -14,7 +14,7 @@ public sealed class GetAllBuildingsQueryHandler : IRequestHandler<GetAllBuilding
         _repository = repository;
     }
 
-    public async Task<IEnumerable<BuildingEntity>> Handle(GetAllBuildingsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<BuildingEntity>> Handle(GetAllBuildingsQuery query, CancellationToken cancellationToken)
     {
         return await _repository.GetAllBuildingsAsync();
     }

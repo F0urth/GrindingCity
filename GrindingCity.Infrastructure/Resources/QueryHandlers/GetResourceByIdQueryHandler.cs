@@ -6,7 +6,7 @@ using MediatR;
 
 namespace GrindingCity.Infrastructure.Resources.QueryHandlers;
 
-public sealed class GetResourceByIdQueryHandler : IRequestHandler<GetResourceById, Result<ResourceEntity, string>>
+public sealed class GetResourceByIdQueryHandler : IRequestHandler<GetResourceByIdQuery, Result<ResourceEntity, string>>
 {
     private readonly IResourceRepository _repository;
 
@@ -15,9 +15,9 @@ public sealed class GetResourceByIdQueryHandler : IRequestHandler<GetResourceByI
         _repository = repository;
     }
 
-    public async Task<Result<ResourceEntity, string>> Handle(GetResourceById request, CancellationToken cancellationToken)
+    public async Task<Result<ResourceEntity, string>> Handle(GetResourceByIdQuery query, CancellationToken cancellationToken)
     {
-        var building = await _repository.GetResourceByAsync(request.Id);
+        var building = await _repository.GetResourceByAsync(query.Id);
         if (building.HasNoValue)
         {
             return Result.Failure<ResourceEntity, string>("");

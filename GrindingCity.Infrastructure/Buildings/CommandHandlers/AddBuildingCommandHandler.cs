@@ -16,9 +16,9 @@ public sealed class AddBuildingCommandHandler : IRequestHandler<AddBuildingComma
         _repository = repository;
     }
 
-    public async Task<Result<BuildingEntity, string>> Handle(AddBuildingCommand request, CancellationToken cancellationToken)
+    public async Task<Result<BuildingEntity, string>> Handle(AddBuildingCommand command, CancellationToken cancellationToken)
     {
-        var buildingEntity = request.ToEntity();
+        var buildingEntity = command.ToEntity();
         var addBuilding = await _repository.AddBuildingAsync(buildingEntity);
         return addBuilding;
     }

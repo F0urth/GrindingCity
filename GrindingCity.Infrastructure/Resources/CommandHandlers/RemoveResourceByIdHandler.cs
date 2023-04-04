@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GrindingCity.Infrastructure.Resources.CommandHandlers;
 
-public sealed class RemoveResourceByIdHandler : IRequestHandler<RemoveResourceById, Unit>
+public sealed class RemoveResourceByIdHandler : IRequestHandler<RemoveResourceByIdCommand, Unit>
 {
     private readonly IBuildingRepository _repository;
 
@@ -13,9 +13,9 @@ public sealed class RemoveResourceByIdHandler : IRequestHandler<RemoveResourceBy
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(RemoveResourceById request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(RemoveResourceByIdCommand command, CancellationToken cancellationToken)
     {
-        await _repository.RemoveBuildingAsync(request.Id);
+        await _repository.RemoveBuildingAsync(command.Id);
         return Unit.Value;
     }
 }
