@@ -33,7 +33,7 @@ namespace GrindingCity.WebApi.Controllers
 
         // POST api
         [HttpPost]
-        public ActionResult Post([FromBody] Building building)
+        public ActionResult Post([FromForm] Building building)
         {
             _buildingRepository.AddBuiding(building);
             return Ok();
