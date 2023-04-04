@@ -17,7 +17,7 @@ public sealed class GetResourceByIdQueryHandler : IRequestHandler<GetResourceByI
 
     public async Task<Result<ResourceEntity, string>> Handle(GetResourceById request, CancellationToken cancellationToken)
     {
-        var building = await _repository.GetBuildingByAsync(request.Id);
+        var building = await _repository.GetResourceByAsync(request.Id);
         if (building.HasNoValue)
         {
             return Result.Failure<ResourceEntity, string>("");

@@ -15,25 +15,25 @@ public sealed class ResourceRepository : IResourceRepository
         _dbContext = dbContext;
     }
 
-    public Task<IEnumerable<ResourceEntity>> GetAllBuildingsAsync()
+    public Task<IEnumerable<ResourceEntity>> GetAllResourcesAsync()
     {
         return Task.FromResult(_dbContext.Resource.AsEnumerable());
     }
 
-    public async Task<Maybe<ResourceEntity>> GetBuildingByAsync(Guid id)
+    public async Task<Maybe<ResourceEntity>> GetResourceByAsync(Guid id)
     {
         var buildingEntity = await _dbContext.Resource.FindAsync(id);
         return Maybe.From(buildingEntity!);
     }
 
-    public async Task<ResourceEntity> AddBuildingAsync(ResourceEntity entity)
+    public async Task<ResourceEntity> AddResourceAsync(ResourceEntity entity)
     {
         await _dbContext.AddAsync(entity);
         await _dbContext.SaveChangesAsync();
         return entity;
     }
 
-    public async Task RemoveBuildingAsync(Guid id)
+    public async Task RemoveResourceAsync(Guid id)
     {
         var buildingEntity = new ResourceEntity { Id = id };
         _dbContext.Entry(buildingEntity).State = EntityState.Deleted;

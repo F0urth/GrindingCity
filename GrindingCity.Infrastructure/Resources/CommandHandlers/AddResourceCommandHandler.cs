@@ -19,7 +19,7 @@ public sealed class AddResourceCommandHandler : IRequestHandler<AddResourceComma
     public async Task<Result<ResourceEntity, string>> Handle(AddResourceCommand request, CancellationToken cancellationToken)
     {
         var buildingEntity = request.ToEntity();
-        var addBuilding = await _repository.AddBuildingAsync(buildingEntity);
+        var addBuilding = await _repository.AddResourceAsync(buildingEntity);
         return addBuilding;
     }
 }

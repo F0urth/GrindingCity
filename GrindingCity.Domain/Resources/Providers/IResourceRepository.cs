@@ -5,11 +5,11 @@ namespace Domain.Resources.Providers;
 
 public interface IResourceRepository
 {
-    Task<IEnumerable<ResourceEntity>> GetAllBuildingsAsync();
+    Task<IEnumerable<ResourceEntity>> GetAllResourcesAsync();
 
-    Task<Maybe<ResourceEntity>> GetBuildingByAsync(Guid id);
+    Task<Maybe<ResourceEntity>> GetResourceByAsync(Guid id);
     
-    Task<ResourceEntity> AddBuildingAsync(ResourceEntity entity);
+    Task<ResourceEntity> AddResourceAsync(ResourceEntity entity);
     
-    Task RemoveBuildingAsync(Guid id);
+    Task RemoveResourceAsync(Guid id);
 }
