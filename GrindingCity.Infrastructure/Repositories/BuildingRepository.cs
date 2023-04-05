@@ -1,5 +1,5 @@
-﻿using GrindingCity.Core.Interfaces.Infrastructure.Repositories;
-using GrindingCity.Domain.Models;
+﻿using GrindingCity.Domain.Entities.Building;
+using GrindingCity.Domain.Interfaces.Repositories;
 using GrindingCity.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +14,7 @@ namespace GrindingCity.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Building> Post(Building building)
+        public async Task<BuildingEntity> CreateAsync(BuildingEntity building)
         {
             var result = _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
@@ -22,14 +22,14 @@ namespace GrindingCity.Infrastructure.Repositories
             return result.Entity;
         }
 
-        public async Task<Building> GetById(Guid id)
+        public async Task<BuildingEntity> GetByIdAsync(Guid id)
         {
-            var result = await FindBuildingById(id);
+            var result = await _context.Buildings.FindAsync(id);
 
-            return result;
+            return result!;
         }
 
-        public async Task<bool> Update(Building building)
+        public async Task<bool> UpdateAsync(BuildingEntity building)
         {
             _context.Buildings.Update(building);
             await _context.SaveChangesAsync();
@@ -37,24 +37,14 @@ namespace GrindingCity.Infrastructure.Repositories
             return true;
         }
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            var result = await FindBuildingById(id);
+            var result = new BuildingEntity { Id = id };
 
-            if (result != null)
-            {
-                _context.Buildings.Remove(result);
-                await _context.SaveChangesAsync();
-            }
+            _context.Entry(result).State = EntityState.Deleted;
+            await _context.SaveChangesAsync();
 
             return true;
-        }
-
-        private async Task<Building> FindBuildingById(Guid id)
-        {
-            var result = await _context.Buildings.Where(x => x.Id == id).SingleOrDefaultAsync();
-
-            return result;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using GrindingCity.Domain.Models;
-using GrindingCity.WebApi.DTO.Commands.BuildingCommands.Create;
-using GrindingCity.WebApi.DTO.Commands.BuildingCommands.Delete;
-using GrindingCity.WebApi.DTO.Commands.BuildingCommands.Update;
-using GrindingCity.WebApi.DTO.Queries.BuildingQueries.GetById;
+﻿using GrindingCity.Core.Building.Commands.Create;
+using GrindingCity.Core.Building.Commands.Delete;
+using GrindingCity.Core.Building.Commands.Update;
+using GrindingCity.Core.Building.Queries.GetById;
+using GrindingCity.Domain.Entities.Building;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,35 +20,36 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<Building> Post([FromBody] string name)
+        public async Task<ActionResult<BuildingEntity>> Post([FromBody] string name)
         {
-            var building = await _mediator.Send(new CreateCommand(name));
+            var building = await _mediator.Send(new CreateBuildingCommand { Name = name});
 
-            return building;
+            return Ok(building);
         }
 
         [HttpGet("{id}")]
-        public async Task<Building> Get(Guid id)
+        //statuscode
+        public async Task<ActionResult<BuildingEntity>> Get(Guid id)
         {
-            var building = await _mediator.Send(new GetByIdQuery { Id = id });
+            var building = await _mediator.Send(new GetByIdQuery(id));
 
-            return building;
+            return Ok(building);
         }
 
         [HttpPut("{id}")]
-        public async Task<bool> Put(Guid id, [FromBody] string name)
+        public async Task<ActionResult<bool>> Put(Guid id, [FromBody] string name)
         {
-            var result = await _mediator.Send(new UpdateCommand(id, name));
+            var result = await _mediator.Send(new UpdateBuildingCommand { Id = id, Name = name});
 
-            return result;
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(Guid id)
+        public async Task<ActionResult<bool>> Delete(Guid id)
         {
-            var result = await _mediator.Send(new DeleteCommand { Id = id });
+            await _mediator.Send(new DeleteBuildingCommand(id));
 
-            return result;
+            return NoContent();
         }
     }
 }
