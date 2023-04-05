@@ -1,4 +1,6 @@
-﻿using GrindingCity.Domain.Models;
+﻿using GrindingCity.Domain.Entities.Building;
+using GrindingCity.Domain.Entities.Resources;
+using GrindingCity.Domain.Interfaces.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GrindingCity.Infrastructure.Database
@@ -10,6 +12,7 @@ namespace GrindingCity.Infrastructure.Database
             optionsBuilder.UseInMemoryDatabase("Building");
         }
 
-        public DbSet<Building> Buildings { get; set; }
+        public DbSet<BuildingEntity> Buildings { get; set; }
+        public DbSet<IResource> Resources { get; set; }
     }
 }
