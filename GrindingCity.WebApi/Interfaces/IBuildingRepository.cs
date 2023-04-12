@@ -1,13 +1,14 @@
-﻿using GrindingCity.WebApi.Models;
+﻿using GrindingCity.WebApi.DTOs;
+using GrindingCity.WebApi.Models;
 
 namespace GrindingCity.WebApi.Interfaces
 {
     public interface IBuildingRepository
     {
-        public Building GetBuilding(Guid id);
-        public IEnumerable<Building> GetAllBuildings();
-        public void AddBuiding(Building building);
-        public void UpdateBuiding(Guid id, decimal price);
-        public void DeleteBuiding(Guid id);
+        public Task<Building?> GetBuilding(Guid id);
+        public Task<IEnumerable<Building>> GetAllBuildings();
+        public Task AddBuiding(CreateBuildingRequest building);
+        public Task UpdateBuiding(Guid id, CreateBuildingRequest price);
+        public Task DeleteBuiding(Guid id);
     }
 }

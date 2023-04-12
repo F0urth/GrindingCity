@@ -1,8 +1,7 @@
-﻿using GrindingCity.WebApi.Repositories;
-using GrindingCity.WebApi.Interfaces;
+﻿using GrindingCity.WebApi.Interfaces;
 using GrindingCity.WebApi.Models;
-using System;
-using System.Collections;
+using Microsoft.EntityFrameworkCore;
+using GrindingCity.WebApi.DTOs;
 
 namespace GrindingCity.WebApi.Repositories
 {
@@ -15,34 +14,43 @@ namespace GrindingCity.WebApi.Repositories
             _appDbContext = db;
         }
 
-        public Building GetBuilding(Guid id) => _appDbContext.Buildings.FirstOrDefault(b => b.Id == id);
-        public IEnumerable<Building> GetAllBuildings() => _appDbContext.Buildings.ToList();
+        public async Task<Building?> GetBuilding(Guid id) => await _appDbContext.Buildings.FirstOrDefaultAsync(b => b.Id == id);
+        
+        public async Task<IEnumerable<Building>> GetAllBuildings() => await _appDbContext.Buildings.ToListAsync();
 
-        public void AddBuiding(Building building)
+        public async Task AddBuiding(CreateBuildingRequest request)
         {
-            _appDbContext.Buildings.Add(building);
-            _appDbContext.SaveChanges();
-        }
-        public void UpdateBuiding(Guid id, decimal price)
-        {
-            var building = _appDbContext.Buildings.FirstOrDefault(b => b.Id == id);
-
-            if (building != null)
+            var newBuiding = new Building()
             {
-                building.Price = price;
-                _appDbContext.Update(building);
-                _appDbContext.SaveChanges();
-            }
+                Price = request.price,
+                Type = request.buildingType
+            };
+
+             _appDbContext.Buildings.Add(newBuiding);
+            await _appDbContext.SaveChangesAsync();
+        }
+        
+        public async Task UpdateBuiding(Guid id, CreateBuildingRequest request)
+        {
+            var building = new Building()
+            {
+                Id = id,
+                Price = request.price,
+                Type = request.buildingType
+            };
+
+            _appDbContext.Update(building);
+            await _appDbContext.SaveChangesAsync();
         }
 
-        public void DeleteBuiding(Guid id)
+        public async Task DeleteBuiding(Guid id)
         {
-            var building = _appDbContext.Buildings.FirstOrDefault(b => b.Id == id);
+            var building = await _appDbContext.Buildings.FirstOrDefaultAsync(b => b.Id == id);
 
             if (building != null)
             {
                 _appDbContext.Buildings.Remove(building);
-                _appDbContext.SaveChanges();
+                await _appDbContext.SaveChangesAsync();
             }
         }
     }
