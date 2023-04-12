@@ -1,5 +1,4 @@
-﻿using GrindingCity.Core.Building.Commands.Create;
-using GrindingCity.Core.Resource.Commands.Create;
+﻿using GrindingCity.Core.Resource.Commands.Create;
 using GrindingCity.Domain.Interfaces.Entities;
 using GrindingCity.WebApi.DTO.Resources;
 using MediatR;
@@ -19,18 +18,19 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<IResource>> Post([FromBody] AddResourceToBuildingDto dto)
+        public async Task<ActionResult> Post([FromBody] AddResourceToBuildingDto dto)
         {
             var command = new CreateResourceCommand
             {
                 BuildingId = dto.BuildingId,
+                ResourceType = dto.ResourceType,
                 Name = dto.Name,
                 Amount = dto.Amount
             };
 
-            var resource = await _mediator.Send(command);
+            await _mediator.Send(command);
 
-            return Ok(resource);
+            return Ok();
         }
     }
 }
