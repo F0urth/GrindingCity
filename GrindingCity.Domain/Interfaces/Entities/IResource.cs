@@ -2,5 +2,6 @@
 {
     public interface IResource
     {
+        public int Amount { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-using GrindingCity.Core.Interfaces.Infrastructure.Repositories;
+using GrindingCity.Domain.Interfaces.Repositories;
 using GrindingCity.Infrastructure.Database;
 using GrindingCity.Infrastructure.Repositories;
 

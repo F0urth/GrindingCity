@@ -28,6 +28,13 @@ namespace GrindingCity.Infrastructure.Repositories
             return result!;
         }
 
+        public Task<IEnumerable<IResource>> GetAllAsync(Guid buildingId)
+        {
+            var result = Task.FromResult(_context.Resources.AsEnumerable());
+
+            return result;
+        }
+
         public async Task<bool> ChangeAmountAsync(IResource resource)
         {
             _context.Resources.Update(resource);
