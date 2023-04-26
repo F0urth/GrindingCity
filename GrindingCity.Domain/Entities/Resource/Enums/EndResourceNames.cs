@@ -2,6 +2,7 @@
 {
     public enum EndResourceNames
     {
+        None,
         Beer
     }
 }

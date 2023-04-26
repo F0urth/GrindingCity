@@ -1,5 +1,4 @@
 ﻿using GrindingCity.Domain.Entities.Resource.Enums;
-using GrindingCity.Domain.Entities.Resources;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GrindingCity.Domain.Entities.Resource

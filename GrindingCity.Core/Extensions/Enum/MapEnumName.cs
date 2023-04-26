@@ -1,5 +1,4 @@
 ﻿using GrindingCity.Domain.Entities.Resource.Enums;
-using GrindingCity.Domain.Entities.Resources.Enums;
 
 namespace GrindingCity.Core.Extensions.Enum
 {

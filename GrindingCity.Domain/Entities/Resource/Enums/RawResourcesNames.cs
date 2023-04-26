@@ -1,7 +1,8 @@
-﻿namespace GrindingCity.Domain.Entities.Resources.Enums
+﻿namespace GrindingCity.Domain.Entities.Resource.Enums
 {
     public enum RawResourcesNames
     {
+        None,
         Wheat,
         Wood
     }

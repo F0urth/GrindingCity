@@ -1,7 +1,6 @@
 ﻿using GrindingCity.Core.Extensions.Enum;
 using GrindingCity.Domain.Entities.Resource;
 using GrindingCity.Domain.Entities.Resource.Enums;
-using GrindingCity.Domain.Entities.Resources;
 using GrindingCity.Domain.Interfaces.Entities;
 using GrindingCity.Domain.Interfaces.Repositories;
 using MediatR;

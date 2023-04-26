@@ -1,7 +1,7 @@
-﻿using GrindingCity.Domain.Entities.Resources.Enums;
+﻿using GrindingCity.Domain.Entities.Resource.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GrindingCity.Domain.Entities.Resources
+namespace GrindingCity.Domain.Entities.Resource
 {
     public sealed class RawResourceEntity : ResourceEntity
     {

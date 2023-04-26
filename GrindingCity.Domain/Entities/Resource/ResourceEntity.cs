@@ -1,6 +1,6 @@
 ﻿using GrindingCity.Domain.Interfaces.Entities;
 
-namespace GrindingCity.Domain.Entities.Resources
+namespace GrindingCity.Domain.Entities.Resource
 {
     public abstract class ResourceEntity : IResource
     {
