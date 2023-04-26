@@ -8,7 +8,7 @@ namespace GrindingCity.WebApi.Interfaces
         public Task<Resourse?> GetResourse(Guid id);
         public Task<IEnumerable<Resourse>> GetAllResourses();
         public Task AddResourse(CreateResourseRequest building);
-        public Task UpdateResourse(Guid id, CreateResourseRequest price);
+        public Task UpdateResourse(Guid id, UpdateResourseRequest price);
         public Task DeleteResourse(Guid id);
     }
 }

@@ -30,7 +30,7 @@ namespace GrindingCity.WebApi.Repositories
             await _appDbContext.SaveChangesAsync();
         }
         
-        public async Task UpdateResourse(Guid id, CreateResourseRequest request)
+        public async Task UpdateResourse(Guid id, UpdateResourseRequest request)
         {
             var resourse = new Resourse()
             {
@@ -45,13 +45,10 @@ namespace GrindingCity.WebApi.Repositories
 
         public async Task DeleteResourse(Guid id)
         {
-            var resourse = await _appDbContext.Resourses.FirstOrDefaultAsync(b => b.Id == id);
+            var resourse = new Resourse() { Id = id };
 
-            if (resourse != null)
-            {
-                _appDbContext.Resourses.Remove(resourse);
-                await _appDbContext.SaveChangesAsync();
-            }
+            _appDbContext.Resourses.Remove(resourse);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }

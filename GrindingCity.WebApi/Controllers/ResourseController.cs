@@ -16,7 +16,7 @@ namespace GrindingCity.WebApi.Controllers
         {
             var result = await handler.GetAllResourses();
 
-            return result == null ? NotFound() : Ok(result);
+            return result is null ? NotFound() : Ok(result);
         }
 
         // GET api
@@ -26,7 +26,7 @@ namespace GrindingCity.WebApi.Controllers
         {
             var result = await handler.GetResourse(id);
 
-            return result == null ? NotFound() : Ok(result);
+            return result is null ? NotFound() : Ok(result);
         }
 
         // POST api
@@ -35,16 +35,16 @@ namespace GrindingCity.WebApi.Controllers
             [FromServices] IResourseRepository handler)
         {
             await handler.AddResourse(resourse);
-            return Ok();
+            return NoContent();
         }
 
         // PUT api
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateResourse(Guid id, [FromBody] CreateResourseRequest resourse,
+        public async Task<ActionResult> UpdateResourse(Guid id, [FromBody] UpdateResourseRequest resourse,
             [FromServices] IResourseRepository handler)
         {
             await handler.UpdateResourse(id, resourse);
-            return Ok();
+            return NoContent();
         }
 
         // DELETE api
@@ -53,7 +53,7 @@ namespace GrindingCity.WebApi.Controllers
             [FromServices] IResourseRepository handler)
         {
             await handler.DeleteResourse(id);
-            return Ok();
+            return NoContent();
         }
     }
 }

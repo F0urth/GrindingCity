@@ -1,7 +1,6 @@
 ﻿using GrindingCity.WebApi.DTOs;
 using GrindingCity.WebApi.Interfaces;
 using GrindingCity.WebApi.Models;
-using GrindingCity.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,7 +18,7 @@ namespace GrindingCity.WebApi.Controllers
         {
             var result = await handler.GetAllBuildings();
 
-            return result == null ? NotFound(result) : Ok(result);
+            return result is null ? NotFound() : Ok(result);
         }
 
         // GET api
@@ -29,7 +28,7 @@ namespace GrindingCity.WebApi.Controllers
         {
             var result = await handler.GetBuilding(id);
 
-            return result == null ? NotFound() : Ok(result);
+            return result is null ? NotFound() : Ok(result);
         }
 
         // POST api
@@ -37,17 +36,17 @@ namespace GrindingCity.WebApi.Controllers
         public async Task<ActionResult> AddBuilding([FromForm] CreateBuildingRequest building, 
             [FromServices] IBuildingRepository handler)
         {
-            await handler.AddBuiding(building);
-            return Ok();
+            await handler.AddBuilding(building);
+            return NoContent();
         }
 
         // PUT api
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateBuiding(Guid id, [FromBody] CreateBuildingRequest building,
+        public async Task<ActionResult> UpdateBuilding(Guid id, [FromBody] UpdateBuildingRequest building,
             [FromServices] IBuildingRepository handler)
         {
-            await handler.UpdateBuiding(id, building);
-            return Ok();
+            await handler.UpdateBuilding(id, building);
+            return NoContent();
         }
 
         // DELETE api
@@ -55,8 +54,8 @@ namespace GrindingCity.WebApi.Controllers
         public async Task<ActionResult> RemoveBuilding(Guid id,
             [FromServices] IBuildingRepository handler)
         {
-            await handler.DeleteBuiding(id);
-            return Ok();
+            await handler.DeleteBuilding(id);
+            return NoContent();
         }
     }
 }

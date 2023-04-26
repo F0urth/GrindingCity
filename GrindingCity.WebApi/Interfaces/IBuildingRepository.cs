@@ -7,8 +7,8 @@ namespace GrindingCity.WebApi.Interfaces
     {
         public Task<Building?> GetBuilding(Guid id);
         public Task<IEnumerable<Building>> GetAllBuildings();
-        public Task AddBuiding(CreateBuildingRequest building);
-        public Task UpdateBuiding(Guid id, CreateBuildingRequest price);
-        public Task DeleteBuiding(Guid id);
+        public Task AddBuilding(CreateBuildingRequest building);
+        public Task UpdateBuilding(Guid id, UpdateBuildingRequest price);
+        public Task DeleteBuilding(Guid id);
     }
 }
