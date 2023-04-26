@@ -1,9 +1,6 @@
 using GrindingCity.WebApi.Repositories;
 using GrindingCity.WebApi.Interfaces;
-using GrindingCity.WebApi.Repositories;
-using GrindingCity.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
