@@ -6,6 +6,7 @@ namespace GrindingCity.Core.Building.Commands.Create
 {
     public sealed class CreateBuildingCommand : IRequest<BuildingEntity>
     {
+        public Guid DistrictId { get; init; }
         public string Name { get; init; } = default!;
         public RawResourcesNames RawResource { get; init; }
         public int RawResourceAmount { get; init; }
