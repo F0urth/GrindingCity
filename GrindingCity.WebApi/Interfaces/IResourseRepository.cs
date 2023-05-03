@@ -3,12 +3,12 @@ using GrindingCity.WebApi.Models;
 
 namespace GrindingCity.WebApi.Interfaces
 {
-    public interface IResourseRepository
+    public interface IResourceRepository
     {
-        public Task<Resourse?> GetResourseAsync(Guid id);
-        public Task<IEnumerable<Resourse>> GetAllResoursesAsync();
-        public Task AddResourseAsync(CreateResourseRequest building);
-        public Task UpdateResourseAsync(Guid id, UpdateResourseRequest price);
-        public Task DeleteResourseAsync(Guid id);
+        public Task<Resource?> GetResourceAsync(Guid id);
+        public Task<IEnumerable<Resource>> GetAllResourcesAsync();
+        public Task AddResourceAsync(CreateResourceRequest building);
+        public Task UpdateResourceAsync(Guid id, UpdateResourceRequest price);
+        public Task DeleteResourceAsync(Guid id);
     }
 }

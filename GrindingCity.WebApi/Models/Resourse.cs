@@ -1,6 +1,6 @@
 ﻿namespace GrindingCity.WebApi.Models
 {
-    public class Resourse
+    public class Resource
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

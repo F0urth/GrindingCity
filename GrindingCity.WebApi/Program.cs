@@ -14,7 +14,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IBuildingRepository, BuildingRepository>();
-builder.Services.AddTransient<IResourseRepository, ResourseRepository>();
+builder.Services.AddTransient<IResourceRepository, ResourceRepository>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

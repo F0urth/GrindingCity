@@ -27,15 +27,15 @@ namespace GrindingCity.WebApi.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<Building>> GetBuilding(Guid id,
             [FromServices] IBuildingRepository buildingHandler,
-            [FromServices] IResourseRepository resourseHandler)
+            [FromServices] IResourceRepository resourceHandler)
         {
             var building = await buildingHandler.GetBuildingAsync(id) ?? throw new InvalidBuidingException();
-            var resourses = await resourseHandler.GetAllResoursesAsync();
+            var resources = await resourceHandler.GetAllResourcesAsync();
             var result = new GetBuildingResponse(
                         building.Id, 
                         building.Price, 
                         building.Type, 
-                        resourses.Where(_ => _.BuildingId == building.Id));
+                        resources.Where(_ => _.BuildingId == building.Id));
 
             return Ok(result);
         }
