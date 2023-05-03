@@ -1,9 +1,6 @@
 using GrindingCity.WebApi.Repositories;
 using GrindingCity.WebApi.Interfaces;
-using GrindingCity.WebApi.Repositories;
-using GrindingCity.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +13,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IBuildingRepository, BuildingRepository>();
+builder.Services.AddTransient<IResourseRepository, ResourseRepository>();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

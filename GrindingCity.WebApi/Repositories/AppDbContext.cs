@@ -1,21 +1,12 @@
 ﻿using GrindingCity.WebApi.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace GrindingCity.WebApi.Repositories
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext>
-    options) : base(options)
-        {
-
-        }
-
         public DbSet<Building> Buildings { get; set; }
+        public DbSet<Resourse> Resourses { get; set; }
+
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     }
 }
