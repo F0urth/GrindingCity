@@ -20,6 +20,7 @@ namespace GrindingCity.Core.Building.Commands.Create
         {
             var building = new BuildingEntity()
             {
+                DistrictId = command.DistrictId,
                 Name = command.Name,
                 Resources = new List<IResource>()
             };

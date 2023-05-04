@@ -1,4 +1,6 @@
+using GrindingCity.Core.District;
 using GrindingCity.Domain.Interfaces.Repositories;
+using GrindingCity.Domain.Interfaces.Services;
 using GrindingCity.Infrastructure.Database;
 using GrindingCity.Infrastructure.Repositories;
 
@@ -10,7 +12,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(conf => conf.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddDbContext<InMemoryDbContext>();
 
-builder.Services.AddTransient<IBuildingRepository, BuildingRepository>();
+builder.Services.AddScoped<IBuildingRepository, BuildingRepository>();
+builder.Services.AddScoped<IDistrictRepository, DistrictRepository>();
+builder.Services.AddScoped<IDistrictService, DistrictService>();
 
 var app = builder.Build();
 

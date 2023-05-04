@@ -3,7 +3,7 @@ using GrindingCity.Core.Building.Commands.Delete;
 using GrindingCity.Core.Building.Commands.Update;
 using GrindingCity.Core.Building.Queries.GetById;
 using GrindingCity.Domain.Entities.Building;
-using GrindingCity.Domain.Entities.Resource.Enums;
+using GrindingCity.WebApi.DTO.Building;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,16 +21,16 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<BuildingEntity>> CreateAsync([FromBody] string name, RawResourcesNames rawResource,
-            int rawResourceAmount, EndResourceNames endResource, int endResourceAmount)
+        public async Task<ActionResult<BuildingEntity>> CreateAsync([FromBody] CreateBuildingDto createBuildingDto)
         {
             var building = await _mediator.Send(new CreateBuildingCommand
             {
-                Name = name,
-                RawResource = rawResource,
-                RawResourceAmount = rawResourceAmount,
-                EndResource = endResource,
-                EndResourceAmount = endResourceAmount
+                DistrictId = createBuildingDto.districtId,
+                Name = createBuildingDto.name,
+                RawResource = createBuildingDto.rawResource,
+                RawResourceAmount = createBuildingDto.rawResourceAmount,
+                EndResource = createBuildingDto.endResource,
+                EndResourceAmount = createBuildingDto.endResourceAmount
             });
 
             return Ok(building);
