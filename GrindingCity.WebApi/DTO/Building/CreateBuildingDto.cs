@@ -5,8 +5,8 @@ namespace GrindingCity.WebApi.DTO.Building
     public sealed record CreateBuildingDto(
         Guid districtId,
         string name,
-        RawResourcesNames rawResource,
+        string rawResourceName,
         int rawResourceAmount,
-        EndResourceNames endResource,
+        string endResourceName,
         int endResourceAmount);
 }

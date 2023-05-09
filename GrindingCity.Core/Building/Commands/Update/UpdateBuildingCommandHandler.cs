@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GrindingCity.GrindingCity.Core.Building.Commands.Update
 {
-    public class UpdateBuildingCommandHandler : IRequestHandler<UpdateBuildingCommand, bool>
+    public class UpdateBuildingCommandHandler : IRequestHandler<UpdateBuildingCommand, string>
     {
         private readonly IBuildingRepository _buildingRepository;
 
@@ -13,20 +13,32 @@ namespace GrindingCity.GrindingCity.Core.Building.Commands.Update
             _buildingRepository = buildingRepository;
         }
 
-        public async Task<bool> Handle(UpdateBuildingCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(UpdateBuildingCommand command, CancellationToken cancellationToken)
         {
-            var building = await _buildingRepository.GetByIdAsync(request.Id);
+            var isSuccess =  Random.Shared.Next(1, 100);
+            var message = "Your supplies were stolen!";
+            var building = await _buildingRepository.GetByIdAsync(command.Id);
 
             if (building == null)
             {
                 throw new ArgumentNullException(nameof(building));
             }
 
-            building.Name = request.Name;
+            if (isSuccess > 60)
+            {
+                message = "Transport successful!";
+
+                building.Resources.Where(x => x.Name == command.RawResourceName)
+                                  .Select(x => x.Amount = command.RawResourceAmount);
+                building.Resources.Where(x => x.Name == command.EndResourceName)
+                                  .Select(x => x.Amount = command.EndResourceAmount);
+            }
+
+            building.Name = command.Name;
 
             await _buildingRepository.UpdateAsync(building);
 
-            return true;
+            return message;
         }
     }
 }

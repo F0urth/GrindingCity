@@ -8,9 +8,9 @@ namespace GrindingCity.Core.Building.Commands.Create
     {
         public Guid DistrictId { get; init; }
         public string Name { get; init; } = default!;
-        public RawResourcesNames RawResource { get; init; }
+        public string RawResource { get; init; }
         public int RawResourceAmount { get; init; }
-        public EndResourceNames EndResource { get; init; }
+        public string EndResource { get; init; }
         public int EndResourceAmount { get; init; }
     }
 }

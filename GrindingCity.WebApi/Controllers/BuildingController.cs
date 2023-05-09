@@ -21,15 +21,17 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<BuildingEntity>> CreateAsync([FromBody] CreateBuildingDto createBuildingDto)
         {
             var building = await _mediator.Send(new CreateBuildingCommand
             {
                 DistrictId = createBuildingDto.districtId,
                 Name = createBuildingDto.name,
-                RawResource = createBuildingDto.rawResource,
+                RawResource = createBuildingDto.rawResourceName,
                 RawResourceAmount = createBuildingDto.rawResourceAmount,
-                EndResource = createBuildingDto.endResource,
+                EndResource = createBuildingDto.endResourceName,
                 EndResourceAmount = createBuildingDto.endResourceAmount
             });
 
@@ -37,8 +39,9 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        //statuscode
-        public async Task<ActionResult<BuildingEntity>> Get(Guid id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<BuildingEntity>> GetAsync(Guid id)
         {
             var building = await _mediator.Send(new GetByIdQuery(id));
 
@@ -46,15 +49,26 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<bool>> Put(Guid id, [FromBody] string name)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<bool>> UpdateAsync([FromBody] UpdateBuildingDto updateBuildingDto)
         {
-            var result = await _mediator.Send(new UpdateBuildingCommand { Id = id, Name = name });
+            var result = await _mediator.Send(new UpdateBuildingCommand
+            {
+                Id = updateBuildingDto.id,
+                Name = updateBuildingDto.name,
+                RawResourceName = updateBuildingDto.rawResourceName,
+                RawResourceAmount = updateBuildingDto.rawResourceAmount,
+                EndResourceName = updateBuildingDto.endResourceName,
+                EndResourceAmount = updateBuildingDto.endResourceAmount
+            });
 
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> Delete(Guid id)
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<bool>> DeleteAsync(Guid id)
         {
             await _mediator.Send(new DeleteBuildingCommand(id));
 

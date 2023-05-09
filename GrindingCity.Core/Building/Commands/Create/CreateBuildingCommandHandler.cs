@@ -1,4 +1,5 @@
-﻿using GrindingCity.Domain.Entities.Building;
+﻿using GrindingCity.Core.Extensions.Enum;
+using GrindingCity.Domain.Entities.Building;
 using GrindingCity.Domain.Entities.Resource;
 using GrindingCity.Domain.Entities.Resource.Enums;
 using GrindingCity.Domain.Interfaces.Entities;
@@ -22,19 +23,23 @@ namespace GrindingCity.Core.Building.Commands.Create
             {
                 DistrictId = command.DistrictId,
                 Name = command.Name,
-                Resources = new List<IResource>()
+                Resources = new List<ResourceEntity>()
             };
 
-            if (command.RawResource is not RawResourcesNames.None)
+            var rawName = MapEnumName.MapRawEnumName(command.Name);
+
+            if (rawName is not RawResourcesNames.None)
             {
-                var rawResource = new RawResourceEntity(building.Id, command.RawResource, command.RawResourceAmount);
+                var rawResource = new RawResourceEntity(building.Id, rawName, command.RawResourceAmount);
 
                 building.Resources.Add(rawResource);
             }
 
-            if (command.EndResource is not EndResourceNames.None)
+            var endName = MapEnumName.MapEndEnumName(command.Name);
+
+            if (endName is not EndResourceNames.None)
             {
-                var endResource = new EndResourceEntity(building.Id, command.EndResource, command.EndResourceAmount);
+                var endResource = new EndResourceEntity(building.Id, endName, command.EndResourceAmount);
 
                 building.Resources.Add(endResource);
             }

@@ -6,7 +6,7 @@ namespace GrindingCity.Domain.Entities.Resource
     {
         public Guid Id { get; init; }
         public Guid BuildingId { get; init; }
-        public string Name { get; init; }
+        public string Name { get; init; } = default!;
         public int Amount { get; set; }
     }
 }
