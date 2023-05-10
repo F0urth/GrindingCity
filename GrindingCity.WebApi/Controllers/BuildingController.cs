@@ -53,7 +53,7 @@ namespace GrindingCity.WebApi.Controllers
         // PUT api
         [HttpPut("{id:guid}")]
         public async Task<ActionResult> UpdateBuilding(Guid id, [FromBody] UpdateBuildingRequest building,
-            [FromServices] IBuildingRepository buildinRepository)
+            [FromServices] IBuildingRepository buildingRepository)
         {
             await buildingRepository.UpdateBuildingAsync(id, building);
             return NoContent();
