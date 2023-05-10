@@ -1,21 +1,21 @@
-﻿using Domain.Buildings.Commands;
-using Domain.Buildings.Providers;
+﻿using Domain.Districts.Commands;
+using Domain.Districts.Providers;
 using MediatR;
 
-namespace GrindingCity.Infrastructure.Buildings.CommandHandlers;
+namespace GrindingCity.Infrastructure.Districts.CommandHandlers;
 
-public sealed class RemoveBuildingByIdCommandHandler : IRequestHandler<RemoveBuildingByIdCommand, Unit>
+public sealed class RemoveDistrictByIdCommandHandler : IRequestHandler<RemoveDistrictByIdCommand, Unit>
 {
-    private readonly IBuildingRepository _repository;
+    private readonly IDistrictRepository _repository;
 
-    public RemoveBuildingByIdCommandHandler(IBuildingRepository repository)
+    public RemoveDistrictByIdCommandHandler(IDistrictRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task<Unit> Handle(RemoveBuildingByIdCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(RemoveDistrictByIdCommand command, CancellationToken cancellationToken)
     {
-        await _repository.RemoveBuildingAsync(command.Id);
+        await _repository.RemoveDistrictAsync(command.Id);
         return Unit.Value;
     }
 }

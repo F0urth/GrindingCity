@@ -6,7 +6,9 @@ using GrindingCity.Infrastructure.Resources.Providers;
 namespace GrindingCity.Infrastructure.Shared;
 
 using System.Reflection;
+using Domain.Districts.Providers;
 using Domain.Entities;
+using GrindingCity.Infrastructure.Districts.Providers;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class DependencyInjection
@@ -16,6 +18,7 @@ public static class DependencyInjection
         return collection
             .AddScoped<IBuildingRepository, BuildingRepository>()
             .AddScoped<IResourceRepository, ResourceRepository>()
+            .AddScoped<IDistrictRepository, DistrictRepository>()
             .AddMediatR(e => e.RegisterServicesFromAssemblies(
                 Assembly.GetAssembly(typeof(BuildingEntity))!,
                 Assembly.GetExecutingAssembly()));;

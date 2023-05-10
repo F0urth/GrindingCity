@@ -9,5 +9,7 @@ public sealed class GrindingCityDbContext : DbContext
 
     public DbSet<ResourceEntity> Resource { get; set; } = default!;
 
+    public DbSet<DistrictEntity> District { get; set; } = default!;
+
     public GrindingCityDbContext(DbContextOptions options) : base(options) { }
 }
