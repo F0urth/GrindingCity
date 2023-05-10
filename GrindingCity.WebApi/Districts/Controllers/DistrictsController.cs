@@ -1,8 +1,7 @@
-﻿using Domain.Districts.Queries;
-using Domain.Resources.Queries;
+﻿using Domain.Districts.Commands;
+using Domain.Districts.Queries;
 using GrindingCity.WebApi.Districts.Extensions;
 using GrindingCity.WebApi.Districts.Models;
-using GrindingCity.WebApi.Resources.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -37,11 +36,36 @@ public class DistrictsController : ControllerBase
 
     [HttpGet]
     [SwaggerResponse(StatusCodes.Status200OK, type: typeof(IEnumerable<ReadDistrictDto>))]
-    public async Task<ActionResult<IEnumerable<ReadResourceDto>>> GetAllRDistricts()
+    public async Task<ActionResult<IEnumerable<ReadDistrictDto>>> GetAllRDistricts()
     {
         var query = new GetAllDistrictsQuery();
         var result = await _mediator.Send(query);
 
         return Ok(result.Select(e => e.ToReadDto()));
+    }
+
+    [HttpPost]
+    [SwaggerResponse(StatusCodes.Status201Created, type: typeof(ReadDistrictDto))]
+    [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
+    public async Task<ActionResult<ReadDistrictDto>> AddResource([FromBody] InputDistrictDto resourceDto)
+    {
+        var command = resourceDto.ToAddDistrictCommand();
+        var result = await _mediator.Send(command);
+        if (result.IsFailure)
+        {
+            return UnprocessableEntity(result.Error);
+        }
+
+        return CreatedAtAction(nameof(GetDistrictById), new { id = result.Value.Id }, result.Value.ToReadDto());
+    }
+
+
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> RemoveById(Guid id)
+    {
+        var command = new RemoveDistrictByIdCommand(id);
+        await _mediator.Send(command);
+        return NoContent();
     }
 }
