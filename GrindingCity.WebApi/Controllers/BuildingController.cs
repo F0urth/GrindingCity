@@ -18,7 +18,7 @@ namespace GrindingCity.WebApi.Controllers
             [FromServices] IBuildingRepository buildingHandler)
         {
             var buildings = await buildingHandler.GetAllBuildingsAsync();
-            var result = new GetAllBuildingsResponse(buildings.Select(_ => _.Id));
+            var result = new GetAllBuildingsResponse(buildings.Select(building => building.Id));
 
             return result is null ? NotFound() : Ok(result);
         }
@@ -35,7 +35,7 @@ namespace GrindingCity.WebApi.Controllers
                         building.Id, 
                         building.Price, 
                         building.Type, 
-                        resources.Where(_ => _.BuildingId == building.Id));
+                        resources.Where(resource => resource.BuildingId == building.Id));
 
             return Ok(result);
         }
