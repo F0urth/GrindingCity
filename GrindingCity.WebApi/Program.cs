@@ -1,8 +1,16 @@
+using GrindingCity.WebApi;
+using GrindingCity.WebApi.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddDbContext<TodoDbContext>(
+    e => e.UseInMemoryDatabase("TodosDb"));
 
 var app = builder.Build();
 
