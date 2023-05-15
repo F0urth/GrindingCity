@@ -19,6 +19,16 @@ namespace GrindingCity.WebApi.Services
             return todos;
         }
 
+        public async Task<IEnumerable<TodoEntity>> GetTodosByStatus(TodoStatus status)
+        {
+            return _dbContext.Todos.Where(x => x.Status == status).ToList();
+        }
+
+        public async Task<TodoEntity> GetTodoById(Guid id)
+        {
+            return _dbContext.Todos.FirstOrDefault(x => x.Id == id);      
+        }
+
         public Task AddTodo(AddNewTodoDto dto)
         {
             var entity = new TodoEntity

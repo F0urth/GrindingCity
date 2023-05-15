@@ -25,6 +25,22 @@ namespace GrindingCity.WebApi.Controllers
             return new OkObjectResult(result);
         }
 
+        [HttpGet("status/{status}")]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(IEnumerable<TodoEntity>))]
+        public async Task<ActionResult<IEnumerable<TodoEntity>>> GetTodosByStatus(TodoStatus status)
+        {
+            var result = await _todoService.GetTodosByStatus(status);
+            return new OkObjectResult(result);
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerResponse(StatusCodes.Status200OK, type: typeof(IEnumerable<TodoEntity>))]
+        public async Task<ActionResult<TodoEntity>> GetTodoById(Guid id)
+        {
+            var result = await _todoService.GetTodoById(id);
+            return new OkObjectResult(result);
+        }
+
         [HttpPost]
         [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AddNewTodoDto))]
         [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
