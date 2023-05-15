@@ -13,7 +13,13 @@ namespace GrindingCity.WebApi.Services
             _dbContext = dbContext;
         }
 
-        public async Task AddTodo(TodoDto dto)
+        public async Task<IEnumerable<TodoEntity>> GetAllTodos()
+        {
+            var todos = _dbContext.Todos.ToList();
+            return todos;
+        }
+
+        public Task AddTodo(AddNewTodoDto dto)
         {
             var entity = new TodoEntity
             {
@@ -23,12 +29,30 @@ namespace GrindingCity.WebApi.Services
 
             _dbContext.Add(entity);
             _dbContext.SaveChanges();
+
+            return Task.CompletedTask;
         }
 
-        public async Task<IEnumerable<TodoEntity>> GetAllTodos()
+        public Task UpdateTodo(UpdateTodoStatusDto dto)
         {
-            var todos = _dbContext.Todos.ToList();
-            return todos;
+            var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == dto.Id);
+            if (todo != null)
+            {
+                todo.Status = dto.Status;
+                _dbContext.Update(todo);
+            }
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteTodo(Guid id) 
+        {
+            var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == id);
+            if (todo != null) 
+            { 
+                _dbContext.Todos.Remove(todo); 
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -26,11 +26,29 @@ namespace GrindingCity.WebApi.Controllers
         }
 
         [HttpPost]
-        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(TodoDto))]
+        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(AddNewTodoDto))]
         [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
-        public async Task<ActionResult> AddTodo(TodoDto todoDto)
+        public async Task<ActionResult> AddTodo(AddNewTodoDto todoDto)
         {
             await _todoService.AddTodo(todoDto);
+            return new OkResult();
+        }
+
+        [HttpPut]
+        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(UpdateTodoStatusDto))]
+        [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
+        public async Task<ActionResult> UpdateTodo(UpdateTodoStatusDto dto)
+        {
+            await _todoService.UpdateTodo(dto);
+            return new OkResult();
+        }
+
+        [HttpDelete]
+        [SwaggerResponse(StatusCodes.Status201Created, type: typeof(Guid))]
+        [SwaggerResponse(StatusCodes.Status422UnprocessableEntity, type: typeof(string))]
+        public async Task<ActionResult> DeleteTodo(Guid id)
+        {
+            await _todoService.DeleteTodo(id);
             return new OkResult();
         }
     }
