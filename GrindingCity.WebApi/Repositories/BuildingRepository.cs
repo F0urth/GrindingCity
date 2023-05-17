@@ -14,11 +14,11 @@ namespace GrindingCity.WebApi.Repositories
             _appDbContext = db;
         }
 
-        public async Task<Building?> GetBuilding(Guid id) => await _appDbContext.Buildings.FirstOrDefaultAsync(b => b.Id == id);
+        public async Task<Building?> GetBuildingAsync(Guid id) => await _appDbContext.Buildings.FirstOrDefaultAsync(b => b.Id == id);
         
-        public async Task<IEnumerable<Building>> GetAllBuildings() => await _appDbContext.Buildings.ToListAsync();
+        public async Task<IEnumerable<Building>> GetAllBuildingsAsync() => await _appDbContext.Buildings.ToListAsync();
 
-        public async Task AddBuilding(CreateBuildingRequest request)
+        public async Task AddBuildingAsync(CreateBuildingRequest request)
         {
             var newBuiding = new Building()
             {
@@ -30,7 +30,7 @@ namespace GrindingCity.WebApi.Repositories
             await _appDbContext.SaveChangesAsync();
         }
         
-        public async Task UpdateBuilding(Guid id, UpdateBuildingRequest request)
+        public async Task UpdateBuildingAsync(Guid id, UpdateBuildingRequest request)
         {
             var building = new Building()
             {
@@ -43,7 +43,7 @@ namespace GrindingCity.WebApi.Repositories
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteBuilding(Guid id)
+        public async Task DeleteBuildingAsync(Guid id)
         {
             var building = new Building() { Id = id };
 

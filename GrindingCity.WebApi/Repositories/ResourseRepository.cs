@@ -5,49 +5,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GrindingCity.WebApi.Repositories
 {
-    public class ResourseRepository : IResourseRepository
+    public class ResourceRepository : IResourceRepository
     {
         private AppDbContext _appDbContext;
 
-        public ResourseRepository(AppDbContext db) 
+        public ResourceRepository(AppDbContext db) 
         {
             _appDbContext = db;
         }
-        
-        public async Task<Resourse?> GetResourse(Guid id) => await _appDbContext.Resourses.FirstOrDefaultAsync(b => b.Id == id);
-        
-        public async Task<IEnumerable<Resourse>> GetAllResourses() => await _appDbContext.Resourses.ToListAsync();
 
-        public async Task AddResourse(CreateResourseRequest request)
+        public async Task<Resource?> GetResourceAsync(Guid id) => await _appDbContext.Resources.FirstOrDefaultAsync(b => b.Id == id);
+
+        public async Task<IEnumerable<Resource>> GetAllResourcesAsync() 
         {
-            var newResourse = new Resourse()
+            return await _appDbContext.Resources.ToListAsync();
+        }
+
+        public async Task AddResourceAsync(CreateResourceRequest request)
+        {
+            var newResource = new Resource()
             {
                 Title = request.title,
-                Price = request.price
+                Price = request.price,
+                BuildingId = request.buildingId
             };
 
-            _appDbContext.Resourses.Add(newResourse);
+            _appDbContext.Resources.Add(newResource);
+
             await _appDbContext.SaveChangesAsync();
         }
         
-        public async Task UpdateResourse(Guid id, UpdateResourseRequest request)
+        public async Task UpdateResourceAsync(Guid id, UpdateResourceRequest request)
         {
-            var resourse = new Resourse()
+            var resource = new Resource()
             {
                 Id = id,
                 Title = request.title,
-                Price = request.price
+                Price = request.price,
+                BuildingId = request.buildingId
             };
 
-            _appDbContext.Update(resourse);
+            _appDbContext.Update(resource);
             await _appDbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteResourse(Guid id)
+        public async Task DeleteResourceAsync(Guid id)
         {
-            var resourse = new Resourse() { Id = id };
+            var resource = new Resource() { Id = id };
 
-            _appDbContext.Resourses.Remove(resourse);
+            _appDbContext.Resources.Remove(resource);
             await _appDbContext.SaveChangesAsync();
         }
     }

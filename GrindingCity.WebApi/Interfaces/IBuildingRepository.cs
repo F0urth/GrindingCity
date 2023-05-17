@@ -5,10 +5,10 @@ namespace GrindingCity.WebApi.Interfaces
 {
     public interface IBuildingRepository
     {
-        public Task<Building?> GetBuilding(Guid id);
-        public Task<IEnumerable<Building>> GetAllBuildings();
-        public Task AddBuilding(CreateBuildingRequest building);
-        public Task UpdateBuilding(Guid id, UpdateBuildingRequest price);
-        public Task DeleteBuilding(Guid id);
+        public Task<Building?> GetBuildingAsync(Guid id);
+        public Task<IEnumerable<Building>> GetAllBuildingsAsync();
+        public Task AddBuildingAsync(CreateBuildingRequest building);
+        public Task UpdateBuildingAsync(Guid id, UpdateBuildingRequest price);
+        public Task DeleteBuildingAsync(Guid id);
     }
 }

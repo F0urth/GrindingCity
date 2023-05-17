@@ -1,59 +1,74 @@
 ﻿using GrindingCity.WebApi.DTOs;
+using GrindingCity.WebApi.Exceptions;
 using GrindingCity.WebApi.Interfaces;
-using GrindingCity.WebApi.Models;
+using GrindingCity.WebApi.Translations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GrindingCity.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResourseController : Controller
+    public class ResourceController : Controller
     {
         // GET all api
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Resourse>>> GetAllResourses(
-            [FromServices] IResourseRepository handler)
+        public async Task<ActionResult<GetAllResourcesResponse>> GetAllResources(
+            [FromServices] IResourceRepository resourceRepository)
         {
-            var result = await handler.GetAllResourses();
+            var result = await resourceRepository.GetAllResourcesAsync();
 
-            return result is null ? NotFound() : Ok(result);
+            return Ok(result);
         }
 
         // GET api
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<Resourse>> GetResourse(Guid id,
-            [FromServices] IResourseRepository handler)
+        public async Task<ActionResult<GetResourcesResponse>> GetResource(Guid id,
+            [FromServices] IResourceRepository resourceRepository)
         {
-            var result = await handler.GetResourse(id);
+            var resource = await resourceRepository.GetResourceAsync(id);
 
-            return result is null ? NotFound() : Ok(result);
+            if (resource is null) return NotFound();
+
+            var mappedResourse = resource.Map;
+
+            return Ok(mappedResourse);
         }
 
         // POST api
         [HttpPost]
-        public async Task<ActionResult> AddResourse([FromForm] CreateResourseRequest resourse,
-            [FromServices] IResourseRepository handler)
+        public async Task<ActionResult> AddResource([FromForm] CreateResourceRequest request,
+            [FromServices] IResourceRepository resourceRepository,
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            await handler.AddResourse(resourse);
+            var building = await buildingRepository.GetBuildingAsync(request.buildingId);
+
+            if (building is null) return NotFound();
+
+            await resourceRepository.AddResourceAsync(request);
             return NoContent();
         }
 
         // PUT api
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> UpdateResourse(Guid id, [FromBody] UpdateResourseRequest resourse,
-            [FromServices] IResourseRepository handler)
+        public async Task<ActionResult> UpdateResource(Guid id, [FromBody] UpdateResourceRequest request,
+            [FromServices] IResourceRepository resourceRepository,
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            await handler.UpdateResourse(id, resourse);
-            return NoContent();
+            var building = await buildingRepository.GetBuildingAsync(request.buildingId);
+
+            if(building is null) return NotFound();
+
+            await resourceRepository.UpdateResourceAsync(id, request);
+            return Ok();
         }
 
         // DELETE api
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> RemoveResourse(Guid id,
-            [FromServices] IResourseRepository handler)
+        public async Task<ActionResult> RemoveResource(Guid id,
+            [FromServices] IResourceRepository resourceRepository)
         {
-            await handler.DeleteResourse(id);
-            return NoContent();
+            await resourceRepository.DeleteResourceAsync(id);
+            return Ok();
         }
     }
 }

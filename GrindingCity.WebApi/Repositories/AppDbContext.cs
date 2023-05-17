@@ -5,7 +5,7 @@ namespace GrindingCity.WebApi.Repositories
     public class AppDbContext : DbContext
     {
         public DbSet<Building> Buildings { get; set; }
-        public DbSet<Resourse> Resourses { get; set; }
+        public DbSet<Resource> Resources { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
     }

@@ -1,6 +1,8 @@
 ﻿using GrindingCity.WebApi.DTOs;
+using GrindingCity.WebApi.Exceptions;
 using GrindingCity.WebApi.Interfaces;
 using GrindingCity.WebApi.Models;
+using GrindingCity.WebApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,10 +15,11 @@ namespace GrindingCity.WebApi.Controllers
     {
         // GET all api
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Building>>> GetAllBuildings(
-            [FromServices] IBuildingRepository handler)
+        public async Task<ActionResult<GetAllBuildingsResponse>> GetAllBuildings(
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            var result = await handler.GetAllBuildings();
+            var buildings = await buildingRepository.GetAllBuildingsAsync();
+            var result = new GetAllBuildingsResponse(buildings.Select(building => building.Id));
 
             return result is null ? NotFound() : Ok(result);
         }
@@ -24,37 +27,44 @@ namespace GrindingCity.WebApi.Controllers
         // GET api
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<Building>> GetBuilding(Guid id,
-            [FromServices] IBuildingRepository handler)
+            [FromServices] IBuildingRepository buildingRepository,
+            [FromServices] IResourceRepository resourceRepository)
         {
-            var result = await handler.GetBuilding(id);
+            var building = await buildingRepository.GetBuildingAsync(id) ?? throw new InvalidBuidingException();
+            var resources = await resourceRepository.GetAllResourcesAsync();
+            var result = new GetBuildingResponse(
+                        building.Id, 
+                        building.Price, 
+                        building.Type, 
+                        resources.Where(resource => resource.BuildingId == building.Id));
 
-            return result is null ? NotFound() : Ok(result);
+            return Ok(result);
         }
 
         // POST api
         [HttpPost]
         public async Task<ActionResult> AddBuilding([FromForm] CreateBuildingRequest building, 
-            [FromServices] IBuildingRepository handler)
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            await handler.AddBuilding(building);
+            await buildingRepository.AddBuildingAsync(building);
             return NoContent();
         }
 
         // PUT api
         [HttpPut("{id:guid}")]
         public async Task<ActionResult> UpdateBuilding(Guid id, [FromBody] UpdateBuildingRequest building,
-            [FromServices] IBuildingRepository handler)
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            await handler.UpdateBuilding(id, building);
+            await buildingRepository.UpdateBuildingAsync(id, building);
             return NoContent();
         }
 
         // DELETE api
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> RemoveBuilding(Guid id,
-            [FromServices] IBuildingRepository handler)
+            [FromServices] IBuildingRepository buildingRepository)
         {
-            await handler.DeleteBuilding(id);
+            await buildingRepository.DeleteBuildingAsync(id);
             return NoContent();
         }
     }
