@@ -1,0 +1,10 @@
+﻿@page "/"
+
+<h1>You tasks</h1>
+
+<ul>
+    @foreach (var task in tasks)
+    {
+        <li>@task.Title</li>
+    }
+</ul>
