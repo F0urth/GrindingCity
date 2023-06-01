@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
-using System.Text.Json;
 using ToDoFrontend.Models;
 
 namespace ToDoFrontend.Pages
@@ -10,7 +9,10 @@ namespace ToDoFrontend.Pages
         [Inject]
         public IHttpClientFactory ClientFactory { get; set; }
 
-        public IEnumerable<ToDo> tasks;
+        public IEnumerable<ToDo> Tasks = Array.Empty<ToDo>();
+        public bool CloseAddTaskForm = true;
+        public string AddTaskText = "New";
+
         protected override async Task OnInitializedAsync()
         {
             await GetTaskList();
@@ -21,17 +23,37 @@ namespace ToDoFrontend.Pages
             var request = new HttpRequestMessage(HttpMethod.Get,
                 "https://localhost:7277/api/ToDo");
 
-            //request.Headers.Add("Access-Control-Allow-Origin", "*");
-            //request.Headers.Add("Access-Control-Allow-Credentials", "true");
-            //request.Headers.Add("Access-Control-Allow-Headers", "Access-Control-Allow-Origin,Content-Type");
-
             var client = ClientFactory.CreateClient();
 
             var response = await client.SendAsync(request);
 
             if (response.IsSuccessStatusCode)
             {
-                var tasks = response.Content.ReadFromJsonAsync<IEnumerable<ToDo>>().Result;
+                Tasks = response.Content.ReadFromJsonAsync<IEnumerable<ToDo>>().Result;
+            }
+        }
+
+        protected async Task CreateNewTaskOpenForm()
+        {
+            CloseAddTaskForm = false;
+        }
+
+        protected async Task CreateNewTask()
+        {
+            var request = new HttpRequestMessage(HttpMethod.Post,
+                "https://localhost:7277/api/Todo");
+
+            var requestBody = new AddNewToDoDto(AddTaskText);
+
+            request.Content = JsonContent.Create(requestBody);
+            var client = ClientFactory.CreateClient();
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await GetTaskList();
+                CloseAddTaskForm = true;
             }
         }
     }

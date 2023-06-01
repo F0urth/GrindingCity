@@ -1,10 +1,30 @@
 ﻿@page "/"
 
+
+
 <h1>You tasks</h1>
 
-<ul>
-    @foreach (var task in tasks)
-    {
-        <li>@task.Title</li>
-    }
-</ul>
+
+<div hidden="@(!CloseAddTaskForm)">
+<button @onclick="CreateNewTaskOpenForm">Create New</button>
+
+@if (Tasks is not null)
+{
+    <ul>
+        @foreach (var task in Tasks)
+        {
+            <li>@(task.Title +  " Status:" + task.Status)</li>
+        }
+    </ul>
+}
+else
+{
+    <h1>No tasks created.</h1>
+}
+</div>
+
+<div id="AddTaskForm" hidden="@CloseAddTaskForm">
+    <label>Title:</label>
+    <input type="text" id="AddTaskText" @bind="@AddTaskText" />
+    <button @onclick="CreateNewTask">Create</button>
+</div>

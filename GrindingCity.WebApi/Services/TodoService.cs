@@ -34,7 +34,7 @@ namespace GrindingCity.WebApi.Services
             var entity = new TodoEntity
             {
                 Title = dto.Title,
-                Status = dto.Status
+                Status = 0
             };
 
             _dbContext.Add(entity);
