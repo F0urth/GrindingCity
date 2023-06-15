@@ -3,9 +3,5 @@
 namespace ToDoFrontend.Models
 {
     public record AddNewToDoDto(string Title);
-    //{
-    //    [JsonPropertyName("title")]
-    //    public string Title { get; set; }
-    //}
-
+    public record CompleteToDoDto(Guid Id);
 }

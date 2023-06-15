@@ -13,7 +13,11 @@
     <ul>
         @foreach (var task in Tasks)
         {
-            <li>@(task.Title +  " Status:" + task.Status)</li>
+            <li>@(task.Title +  " Status: " + task.Status)
+                    &nbsp;<button @onclick="()=> CompleteTask(task.Id)">Done</button>
+@*                    &nbsp;<button @onclick="EditTask">Edit</button>
+                    &nbsp;<button @onclick="DeleteTask">Delete</button>*@
+            </li>
         }
     </ul>
 }

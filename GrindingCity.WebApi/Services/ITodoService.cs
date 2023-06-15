@@ -4,10 +4,11 @@ namespace GrindingCity.WebApi.Services;
 
 public interface ITodoService
 {  
-    Task<IEnumerable<TodoEntity>> GetAllTodos();
-    Task<IEnumerable<TodoEntity>> GetTodosByStatus(TodoStatus status);
-    Task<TodoEntity> GetTodoById(Guid id);
-    Task AddTodo(AddNewTodoDto dto);
-    Task UpdateTodo(UpdateTodoStatusDto dto);
-    Task DeleteTodo(Guid id);
+    Task<IEnumerable<TodoEntity>> GetAllTodosAsync();
+    Task<IEnumerable<TodoEntity>> GetTodosByStatusAsync(TodoStatus status);
+    Task<TodoEntity> GetTodoByIdAsync(Guid id);
+    Task AddTodoAsync(AddNewTodoDto dto);
+    Task UpdateTodoAsync(UpdateTodoStatusDto dto);
+    Task CompleteTodoAsync(CompleteTodoDto dto);
+    Task DeleteTodoAsync(Guid id);
 }

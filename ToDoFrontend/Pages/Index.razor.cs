@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
+using ToDoFrontend.Interfaces;
 using ToDoFrontend.Models;
 
 namespace ToDoFrontend.Pages
@@ -9,7 +10,10 @@ namespace ToDoFrontend.Pages
         [Inject]
         public IHttpClientFactory ClientFactory { get; set; }
 
-        public IEnumerable<ToDo> Tasks = Array.Empty<ToDo>();
+        [Inject]
+        public ITodoService TodoService { get; set; }
+
+        public IEnumerable<ToDo>? Tasks = Array.Empty<ToDo>();
         public bool CloseAddTaskForm = true;
         public string AddTaskText = "New";
 
@@ -20,41 +24,27 @@ namespace ToDoFrontend.Pages
 
         protected async Task GetTaskList()
         {
-            var request = new HttpRequestMessage(HttpMethod.Get,
-                "https://localhost:7277/api/ToDo");
-
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                Tasks = response.Content.ReadFromJsonAsync<IEnumerable<ToDo>>().Result;
-            }
+            Tasks = await TodoService.GetListTodosAsync();
         }
 
-        protected async Task CreateNewTaskOpenForm()
+        protected void CreateNewTaskOpenForm()
         {
             CloseAddTaskForm = false;
         }
 
         protected async Task CreateNewTask()
         {
-            var request = new HttpRequestMessage(HttpMethod.Post,
-                "https://localhost:7277/api/Todo");
+            await TodoService.AddTotoAsync(new AddNewToDoDto(AddTaskText));
+            await GetTaskList();
 
-            var requestBody = new AddNewToDoDto(AddTaskText);
+            CloseAddTaskForm = true;
+        }
 
-            request.Content = JsonContent.Create(requestBody);
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode)
-            {
-                await GetTaskList();
-                CloseAddTaskForm = true;
-            }
+        protected async Task CompleteTask(Guid id)
+        {
+            await TodoService.CompleteTodoAsync(id);
+            await GetTaskList();
+            
         }
     }
 }

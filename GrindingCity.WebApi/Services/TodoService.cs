@@ -1,68 +1,73 @@
 ﻿using GrindingCity.WebApi.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 
-namespace GrindingCity.WebApi.Services
+namespace GrindingCity.WebApi.Services;
+
+public class TodoService : ITodoService
 {
-    public class TodoService : ITodoService
+    private readonly TodoDbContext _dbContext;
+
+    public TodoService(TodoDbContext dbContext)
     {
-        private readonly TodoDbContext _dbContext;
+        _dbContext = dbContext;
+    }
 
-        public TodoService(TodoDbContext dbContext)
+    public async Task<IEnumerable<TodoEntity>> GetAllTodosAsync()
+    {
+        return await _dbContext.Todos.ToListAsync();
+    }
+
+    public async Task<IEnumerable<TodoEntity>> GetTodosByStatusAsync(TodoStatus status)
+    {
+        return await _dbContext.Todos.Where(x => x.Status == status).ToListAsync();
+    }
+
+    public async Task<TodoEntity?> GetTodoByIdAsync(Guid id)
+    {
+        return await _dbContext.Todos.FirstOrDefaultAsync(x => x.Id == id);      
+    }
+
+    public async Task AddTodoAsync(AddNewTodoDto dto)
+    {
+        var entity = new TodoEntity
         {
-            _dbContext = dbContext;
+            Title = dto.Title,
+            Status = 0
+        };
+
+        _dbContext.Add(entity);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateTodoAsync(UpdateTodoStatusDto dto)
+    {
+        var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == dto.Id);
+        if (todo is not null)
+        {
+            todo.Status = dto.Status;
+            _dbContext.Update(todo);
+            await _dbContext.SaveChangesAsync();
         }
+    }
 
-        public async Task<IEnumerable<TodoEntity>> GetAllTodos()
+    public async Task CompleteTodoAsync(CompleteTodoDto dto)
+    {
+        var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == dto.Id);
+        if (todo is not null)
         {
-            var todos = _dbContext.Todos.ToList();
-            return todos;
+            todo.Status = TodoStatus.Completed;
+            _dbContext.Update(todo);
+            await _dbContext.SaveChangesAsync();
         }
+    }
 
-        public async Task<IEnumerable<TodoEntity>> GetTodosByStatus(TodoStatus status)
-        {
-            return _dbContext.Todos.Where(x => x.Status == status).ToList();
-        }
-
-        public async Task<TodoEntity> GetTodoById(Guid id)
-        {
-            return _dbContext.Todos.FirstOrDefault(x => x.Id == id);      
-        }
-
-        public Task AddTodo(AddNewTodoDto dto)
-        {
-            var entity = new TodoEntity
-            {
-                Title = dto.Title,
-                Status = 0
-            };
-
-            _dbContext.Add(entity);
-            _dbContext.SaveChanges();
-
-            return Task.CompletedTask;
-        }
-
-        public Task UpdateTodo(UpdateTodoStatusDto dto)
-        {
-            var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == dto.Id);
-            if (todo != null)
-            {
-                todo.Status = dto.Status;
-                _dbContext.Update(todo);
-            }
-            return Task.CompletedTask;
-        }
-
-        public Task DeleteTodo(Guid id) 
-        {
-            var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == id);
-            if (todo != null) 
-            { 
-                _dbContext.Todos.Remove(todo); 
-            }
-
-            return Task.CompletedTask;
+    public async Task DeleteTodoAsync(Guid id) 
+    {
+        var todo = _dbContext.Todos.FirstOrDefault(x => x.Id == id);
+        if (todo is not null) 
+        { 
+            _dbContext.Todos.Remove(todo);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
